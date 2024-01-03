@@ -1,0 +1,61 @@
+name: Build LLVM
+on: [push, pull_request]
+
+jobs:
+  ubuntu-gcc-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Setup environment
+        run: |
+          sudo apt-get install -y \
+            build-essential \
+            ninja-build \
+      - name: Setup ccache
+        uses: hendrikmuhs/ccache-action@v1.2
+        with:
+          max-size: 500M
+          key: ccache-${{ github.job }}
+      - name: Build
+        run: |
+          cmake -S llvm -B build \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DLLVM_ENABLE_PROJECTS='clang;mlir' \
+            -DLLVM_ENABLE_ASSERTIONS=ON \
+            -DCMAKE_C_COMPILER_LAUNCHER=ccache \
+            -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
+            -G Ninja
+          cmake --build build -j $(nproc)
+      - name: Test
+        run: |
+          cmake --build build -t check-llvm check-clang check-mlir -j $(nproc)
+  macos-build:
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Setup environment
+        run: |
+          brew install \
+            ninja
+      - name: Setup ccache
+        uses: hendrikmuhs/ccache-action@v1.2
+        with:
+          max-size: 500M
+          key: ccache-${{ github.job }}
+      - name: Build
+        run: |
+          cmake -S llvm -B build \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DLLVM_ENABLE_PROJECTS='clang;mlir' \
+            -DLLVM_ENABLE_ASSERTIONS=ON \
+            -DCMAKE_C_COMPILER_LAUNCHER=ccache \
+            -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
+            -G Ninja
+          cmake --build build -j $(nproc)
+      - name: Test
+        run: |
+          cmake --build build -t check-llvm check-clang check-mlir -j $(nproc)
