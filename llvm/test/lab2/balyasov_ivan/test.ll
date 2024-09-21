@@ -115,7 +115,7 @@ define dso_local void @f4() #0 {
 
 ; CHECK-LABEL: @f4
 ; CHECK: %3 = load i32, ptr %1, align 4
-; CHECK-NEXT: store i32 %3, ptr %2, align 4
+; CHECK-NEXT: store i32 %4, ptr %2, align 4
 
 define dso_local void @f5() #0 {
   %1 = alloca i32, align 4
