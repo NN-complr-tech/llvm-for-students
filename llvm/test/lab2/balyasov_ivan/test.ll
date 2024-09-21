@@ -157,7 +157,7 @@ define dso_local void @f7() #0 {
   %2 = alloca i32, align 4
   store i32 4, ptr %1, align 4
   %3 = load i32, ptr %1, align 4
-  %4 = mul nsw i32 %3, 3
+  %4 = shl i32 3, 2
   store i32 %4, ptr %2, align 4
   ret void
 }
