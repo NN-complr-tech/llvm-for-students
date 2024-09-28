@@ -1,3 +1,5 @@
+; RUN: opt -load-pass-plugin=%llvmshlibdir/mul_to_bit_shift%shlibext -passes=mul_to_bit_shift -S %s | FileCheck %s
+
 ;int f1(int a){
 ;    int c = a + 4;
 ;    return c;
