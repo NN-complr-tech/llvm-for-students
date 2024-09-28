@@ -62,7 +62,7 @@ define dso_local i32 @f1(i32 noundef %0) #0 {
   %3 = alloca i32, align 4
   store i32 %0, ptr %2, align 4
   %4 = load i32, ptr %2, align 4
-  %5 = mul nsw i32 %4, 4
+  %5 = add nsw i32 %4, 4
   store i32 %5, ptr %3, align 4
   %6 = load i32, ptr %3, align 4
   ret i32 %6
@@ -158,7 +158,7 @@ define dso_local void @f7() #0 {
   %2 = alloca i32, align 4
   store i32 4, ptr %1, align 4
   %3 = load i32, ptr %1, align 4
-  %4 = shl i32 3, 2
+  %4 = mul nsw i32 %3, 3
   store i32 %4, ptr %2, align 4
   ret void
 }

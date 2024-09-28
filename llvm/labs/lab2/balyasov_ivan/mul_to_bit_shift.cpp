@@ -10,18 +10,16 @@
 namespace {
 struct mul_to_bit_shift : llvm::PassInfoMixin<mul_to_bit_shift> {
 public:
-  llvm::PreservedAnalyses run(llvm::Function &F,
+  llvm::PreservedAnalyses run(llvm::Function &Func,
                               llvm::FunctionAnalysisManager &FAM) {
-    std::stack<llvm::Instruction *> worklist;
+    std::vector<llvm::Instruction *> toRemove;
 
-    for (llvm::BasicBlock &BB : F) {
+    for (llvm::BasicBlock &BB : Func) {
       for (llvm::Instruction &Inst : BB) {
         if (!llvm::BinaryOperator::classof(&Inst)) {
           continue;
         }
-
         llvm::BinaryOperator *op = llvm::cast<llvm::BinaryOperator>(&Inst);
-
         if (op->getOpcode() != llvm::Instruction::BinaryOps::Mul) {
           continue;
         }
@@ -31,7 +29,6 @@ public:
 
         int lg1 = getLogBase2(lhs);
         int lg2 = getLogBase2(rhs);
-        
         if (lg1 < lg2) {
           std::swap(lg1, lg2);
           std::swap(lhs, rhs);
@@ -39,21 +36,18 @@ public:
 
         if (lg1 > -1) {
           llvm::Value *lg_val = llvm::ConstantInt::get(
-              llvm::IntegerType::get(F.getContext(), 32),
+              llvm::IntegerType::get(Func.getContext(), 32),
               llvm::APInt(32, lg1));
 
           llvm::Value *val = llvm::BinaryOperator::Create(
               llvm::Instruction::Shl, rhs, lg_val, op->getName(), op);
 
           op->replaceAllUsesWith(val);
-          worklist.push(&Inst);
+          toRemove.push_back(op);
         }
       }
-
-      while (!worklist.empty()) {
-        llvm::Instruction *I = worklist.top();
+      for (auto *I : toRemove) {
         I->eraseFromParent();
-        worklist.pop();
       }
     }
 
@@ -66,7 +60,6 @@ private:
     if (llvm::ConstantInt *CI = llvm::dyn_cast<llvm::ConstantInt>(val)) {
       return CI->getValue().exactLogBase2();
     }
-
     if (auto *LI = llvm::dyn_cast<llvm::LoadInst>(val)) {
       llvm::Value *Op = LI->getPointerOperand();
       Op->reverseUseList();
@@ -91,7 +84,7 @@ private:
     return -2;
   }
 };
-}
+} // namespace
 
 bool registerPipeline(llvm::StringRef Name, llvm::FunctionPassManager &FPM,
                       llvm::ArrayRef<llvm::PassBuilder::PipelineElement>) {
