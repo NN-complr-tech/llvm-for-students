@@ -1460,3 +1460,8 @@ if (XCODE)
     set_target_properties(${target} PROPERTIES XCODE_GENERATE_SCHEME ON)
   endforeach()
 endif()
+
+# BEGIN COMPILER COURSE
+include(${LLVM_COMMON_CMAKE_UTILS}/Modules/UtilsCompilerCourse.cmake)
+add_subdirectory(compiler-course)
+# END COMPILER COURSE

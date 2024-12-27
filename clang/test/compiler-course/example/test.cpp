@@ -1,4 +1,4 @@
-// RUN: %clang_cc1 -load %llvmshlibdir/ExamplePlugin%pluginext -plugin example_plugin -fsyntax-only %s 2>&1 | FileCheck %s
+// RUN: %clang_cc1 -load %llvmshlibdir/ExamplePlugin_Ivanov_Ivan_FIIT0%pluginext -plugin example_plugin -fsyntax-only %s 2>&1 | FileCheck %s
 
 // CHECK: FunctionDecl {{0x[0-9a-fA-F]+}} <{{.*}}> col:20 isEven 'bool (int) noexcept'
 // CHECK: |-ParmVarDecl {{0x[0-9a-fA-F]+}} <col:27, col:31> col:31 used value 'int'
