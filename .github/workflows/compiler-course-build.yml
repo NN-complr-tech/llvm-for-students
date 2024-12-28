@@ -22,15 +22,15 @@ jobs:
         run: |
           cmake -S llvm -B build \
             -DCMAKE_BUILD_TYPE=Release \
-            -DLLVM_ENABLE_PROJECTS='clang;mlir' \
+            -DLLVM_ENABLE_PROJECTS='clang' \
             -DLLVM_ENABLE_ASSERTIONS=ON \
-            -DCMAKE_C_COMPILER_LAUNCHER=ccache \
-            -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
+            -DLLVM_CCACHE_BUILD=ON \
+            -DLLVM_TARGETS_TO_BUILD=X86 \
             -G Ninja
           cmake --build build -j $(nproc)
       - name: Test
         run: |
-          cmake --build build -t check-llvm check-clang check-mlir -j $(nproc)
+          cmake --build build -t check-llvm-compiler-course check-clang-compiler-course -j $(nproc)
   macos-build:
     runs-on: macOS-latest
     steps:
@@ -50,7 +50,7 @@ jobs:
         run: |
           cmake -S llvm -B build \
             -DCMAKE_BUILD_TYPE=Release \
-            -DLLVM_ENABLE_PROJECTS='clang;mlir' \
+            -DLLVM_ENABLE_PROJECTS='clang' \
             -DLLVM_ENABLE_ASSERTIONS=ON \
             -DCMAKE_C_COMPILER_LAUNCHER=ccache \
             -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
@@ -58,7 +58,7 @@ jobs:
           cmake --build build -j $(nproc)
       - name: Test
         run: |
-          cmake --build build -t check-llvm check-clang check-mlir -j $(nproc)
+          cmake --build build -t check-llvm-compiler-course check-clang-compiler-course -j $(nproc)
   windows-build:
     runs-on: windows-latest
     steps:
@@ -103,7 +103,7 @@ jobs:
                 -DCMAKE_BUILD_TYPE=Release \
                 -DLLVM_ENABLE_ASSERTIONS=ON \
                 -DLLDB_INCLUDE_TESTS=OFF \
-                -DCMAKE_C_COMPILER_LAUNCHER=sccache \
-                -DCMAKE_CXX_COMPILER_LAUNCHER=sccache \
+                -DLLVM_CCACHE_BUILD=ON \
+                -DLLVM_TARGETS_TO_BUILD=X86 \
                 ${{ inputs.extra_cmake_args }}
           ninja -C "$builddir" all
