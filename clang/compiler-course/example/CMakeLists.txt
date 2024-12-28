@@ -3,7 +3,8 @@ set(Student "Ivanov_Ivan")
 set(Group "FIIT0")
 set(TARGET_NAME "${Title}_${Student}_${Group}")
 
-add_llvm_library(${TARGET_NAME} MODULE example.cpp PLUGIN_TOOL clang)
+file(GLOB_RECURSE SOURCES *.cpp *.h *.hpp)
+add_llvm_library(${TARGET_NAME} MODULE ${SOURCES} PLUGIN_TOOL clang)
 
 if(WIN32 OR CYGWIN)
     set(LLVM_LINK_COMPONENTS Support)
