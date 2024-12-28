@@ -1423,3 +1423,8 @@ endif()
 if (LLVM_INCLUDE_UTILS AND LLVM_INCLUDE_TOOLS)
   add_subdirectory(utils/llvm-locstats)
 endif()
+
+# BEGIN COMPILER COURSE
+include(${LLVM_COMMON_CMAKE_UTILS}/Modules/UtilsCompilerCourse.cmake)
+add_subdirectory(compiler-course)
+# END COMPILER COURSE
