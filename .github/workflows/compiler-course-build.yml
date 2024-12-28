@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        llvm_enable_assertions: [ON, OFF]
+        assertions: [ON, OFF]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -26,7 +26,7 @@ jobs:
           cmake -S llvm -B build \
             -DCMAKE_BUILD_TYPE=Release \
             -DLLVM_ENABLE_PROJECTS='clang' \
-            -DLLVM_ENABLE_ASSERTIONS=${{ matrix.llvm_enable_assertions }} \
+            -DLLVM_ENABLE_ASSERTIONS=${{ matrix.assertions }} \
             -DLLVM_CCACHE_BUILD=ON \
             -DLLVM_TARGETS_TO_BUILD=X86 \
             -G Ninja
@@ -34,17 +34,21 @@ jobs:
       - name: Test
         run: |
           cmake --build build -t check-llvm-compiler-course check-clang-compiler-course -j $(nproc)
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
+      - name: Archive build
+        - uses: montudor/action-zip@v1
+          with:
+            args: zip -qq -r build-ubuntu-${{ matrix.assertions }}.zip build/
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4.3.0
         with:
-          name: llvm-build-ubuntu-${{ matrix.llvm_enable_assertions }}
-          path: build/
+          name: build-ubuntu-${{ matrix.assertions }}
+          path: build-ubuntu-${{ matrix.assertions }}.zip
 
   macos-build:
     runs-on: macOS-latest
     strategy:
       matrix:
-        llvm_enable_assertions: [ON, OFF]
+        assertions: [ON, OFF]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -63,7 +67,7 @@ jobs:
           cmake -S llvm -B build \
             -DCMAKE_BUILD_TYPE=Release \
             -DLLVM_ENABLE_PROJECTS='clang' \
-            -DLLVM_ENABLE_ASSERTIONS=${{ matrix.llvm_enable_assertions }} \
+            -DLLVM_ENABLE_ASSERTIONS=${{ matrix.assertions }} \
             -DLLVM_CCACHE_BUILD=ON \
             -DLLVM_TARGETS_TO_BUILD=X86 \
             -G Ninja
@@ -71,17 +75,12 @@ jobs:
       - name: Test
         run: |
           cmake --build build -t check-llvm-compiler-course check-clang-compiler-course -j $(nproc)
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: llvm-build-macos-${{ matrix.llvm_enable_assertions }}
-          path: build/
 
   windows-build:
     runs-on: windows-latest
     strategy:
       matrix:
-        llvm_enable_assertions: [ON, OFF]
+        assertions: [ON, OFF]
     steps:
       - name: Setup Windows
         if: startsWith(matrix.os, 'windows')
@@ -114,15 +113,10 @@ jobs:
                 -S llvm \
                 -DLLVM_ENABLE_PROJECTS="clang" \
                 -DCMAKE_BUILD_TYPE=Release \
-                -DLLVM_ENABLE_ASSERTIONS=${{ matrix.llvm_enable_assertions }} \
+                -DLLVM_ENABLE_ASSERTIONS=${{ matrix.assertions }} \
                 -DLLDB_INCLUDE_TESTS=OFF \
                 -DCMAKE_C_COMPILER_LAUNCHER=sccache \
                 -DCMAKE_CXX_COMPILER_LAUNCHER=sccache \
                 -DLLVM_TARGETS_TO_BUILD=X86 \
                 ${{ inputs.extra_cmake_args }}
           ninja -C "$builddir" all
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: llvm-build-windows-${{ matrix.llvm_enable_assertions }}
-          path: build/
