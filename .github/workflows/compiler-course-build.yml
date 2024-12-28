@@ -35,9 +35,9 @@ jobs:
         run: |
           cmake --build build -t check-llvm-compiler-course check-clang-compiler-course -j $(nproc)
       - name: Archive build
-        - uses: montudor/action-zip@v1
-          with:
-            args: zip -qq -r build-ubuntu-${{ matrix.assertions }}.zip build/
+        uses: montudor/action-zip@v1
+        with:
+          args: zip -qq -r build-ubuntu-${{ matrix.assertions }}.zip build/
       - name: Upload artifacts
         uses: actions/upload-artifact@v4.3.0
         with:
