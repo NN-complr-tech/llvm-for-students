@@ -104,5 +104,4 @@ jobs:
                 -DLLDB_INCLUDE_TESTS=OFF \
                 -DCMAKE_C_COMPILER_LAUNCHER=sccache \
                 -DCMAKE_CXX_COMPILER_LAUNCHER=sccache \
-                ${{ inputs.extra_cmake_args }}
           ninja -C "$builddir" all
