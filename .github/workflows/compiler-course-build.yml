@@ -63,8 +63,8 @@ jobs:
             -G Ninja
           cmake --build build -j $(nproc)
       - name: Test
-      run: |
-        cmake --build build -t check-clang-compiler-course check-llvm-compiler-course -j $(nproc)
+        run: |
+          cmake --build build -t check-clang-compiler-course check-llvm-compiler-course -j $(nproc)
   windows-build:
     runs-on: windows-latest
     strategy:
