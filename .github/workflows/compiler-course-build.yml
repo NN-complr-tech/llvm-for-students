@@ -76,9 +76,9 @@ jobs:
         with:
           arch: amd64
       - name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: ${{ inputs.python_version }}
+          python-version: "3.12.0"
       - name: Install Ninja
         uses: llvm/actions/install-ninja@main
       - uses: actions/checkout@v4
