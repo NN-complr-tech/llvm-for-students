@@ -1,6 +1,5 @@
- ame: Static analysis
-
-on: [pull_request]
+name: Static analysis
+on: [push, pull_request]
 
 jobs:
   clang-format:
@@ -33,8 +32,7 @@ jobs:
             -DCMAKE_BUILD_TYPE=Release
             -DLLVM_ENABLE_PROJECTS='clang;mlir'
             -DLLVM_ENABLE_ASSERTIONS=ON
-            -DCMAKE_C_COMPILER_LAUNCHER=ccache
-            -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
+            -DLLVM_CCACHE_BUILD=ON
             -G Ninja
         config_file: .clang-tidy
         apt_packages: build-essential,ninja-build
