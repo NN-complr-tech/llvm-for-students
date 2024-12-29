@@ -1,5 +1,4 @@
 name: Static analysis
-
 on: [pull_request]
 
 jobs:
