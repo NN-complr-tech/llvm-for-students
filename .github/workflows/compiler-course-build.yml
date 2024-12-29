@@ -72,7 +72,6 @@ jobs:
         assertions: [ON, OFF]
     steps:
       - name: Setup Windows
-        if: startsWith(matrix.os, 'windows')
         uses: llvm/actions/setup-windows@main
         with:
           arch: amd64
@@ -89,7 +88,6 @@ jobs:
         uses: hendrikmuhs/ccache-action@v1
         with:
           max-size: 2G
-          key: ${{ matrix.os }}
           variant: sccache
       - name: Build
         shell: bash
