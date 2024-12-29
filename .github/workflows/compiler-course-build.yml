@@ -33,7 +33,7 @@ jobs:
           cmake --build build -j $(nproc)
       - name: Test
         run: |
-          cmake --build build -t check-clang-compiler-course check-llvm-compiler-course -j $(nproc)
+          cmake --build build -t check-llvm-compiler-course check-clang-compiler-course -j $(nproc)
   macos-build:
     runs-on: macOS-latest
     strategy:
@@ -64,7 +64,7 @@ jobs:
           cmake --build build -j $(nproc)
       - name: Test
         run: |
-          cmake --build build -t check-clang-compiler-course check-llvm-compiler-course -j $(nproc)
+          cmake --build build -t check-llvm-compiler-course check-clang-compiler-course -j $(nproc)
   windows-build:
     runs-on: windows-latest
     strategy:
