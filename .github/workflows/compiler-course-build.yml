@@ -33,7 +33,7 @@ jobs:
           cmake --build build -j $(nproc)
       - name: Test
         run: |
-          cmake --build build -t check-llvm-compiler-course check-clang-compiler-course -j $(nproc)
+          cmake --build build -t check-llvm check-clang -j $(nproc)
       - name: Archive build
         uses: montudor/action-zip@v1
         with:
@@ -74,7 +74,7 @@ jobs:
           cmake --build build -j $(nproc)
       - name: Test
         run: |
-          cmake --build build -t check-llvm-compiler-course check-clang-compiler-course -j $(nproc)
+          cmake --build build -t check-llvm check-clang -j $(nproc)
 
   windows-build:
     runs-on: windows-latest
