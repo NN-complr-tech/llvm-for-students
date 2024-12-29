@@ -14,7 +14,7 @@ public:
   }
 
 private:
-  [[maybe_unused]] clang::ASTContext *m_context;
+  clang::ASTContext *m_context;
 };
 
 class ExampleConsumer final : public clang::ASTConsumer {
