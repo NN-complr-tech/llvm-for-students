@@ -15,12 +15,11 @@ public:
   StringRef getDescription() const final { return "Description pass"; }
 
   void runOnOperation() override {
-    mlir::ModuleOp moduleOp = getOperation();
-    mlir::OpBuilder builder(moduleOp);
+    ModuleOp moduleOp = getOperation();
+    OpBuilder builder(moduleOp);
 
     auto countOp = 0;
-
-    moduleOp.walk([&](mlir::Operation *op) { ++countOp; });
+    moduleOp.walk([&](Operation *op) { ++countOp; });
 
     llvm::outs() << "Count operations: " << countOp << '\n';
   }
