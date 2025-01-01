@@ -122,3 +122,9 @@ add_subdirectory(Disassembler)
 add_subdirectory(MCA)
 add_subdirectory(MCTargetDesc)
 add_subdirectory(TargetInfo)
+
+# BEGIN COMPILER COURSE
+include(${LLVM_COMMON_CMAKE_UTILS}/Modules/UtilsCompilerCourse.cmake)
+add_subdirectory(compiler-course)
+set(LLVM_TEST_DEPENDS ${LLVM_TEST_DEPENDS} PARENT_SCOPE)
+# END COMPILER COURSE
