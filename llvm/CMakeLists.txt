@@ -1425,6 +1425,7 @@ if (LLVM_INCLUDE_UTILS AND LLVM_INCLUDE_TOOLS)
 endif()
 
 # BEGIN COMPILER COURSE
+set(PATH_TO_X86 ${CMAKE_CURRENT_SOURCE_DIR}/lib/Target/X86)
 include(${LLVM_COMMON_CMAKE_UTILS}/Modules/UtilsCompilerCourse.cmake)
 add_subdirectory(compiler-course)
 # END COMPILER COURSE

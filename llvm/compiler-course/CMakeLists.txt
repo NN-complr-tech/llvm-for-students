@@ -1,3 +1,3 @@
-list_subdirs(subdirs ${CMAKE_CURRENT_SOURCE_DIR})
-add_subdirs(subdirs "COMPILER COURSE (LLVM-IR)")
+add_subdirectory(llvm-ir)
+add_subdirectory(backend)
 set(LLVM_TEST_DEPENDS ${LLVM_TEST_DEPENDS} PARENT_SCOPE)
