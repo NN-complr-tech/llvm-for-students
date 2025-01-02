@@ -41,7 +41,3 @@ endforeach()
 # logic in llvm_map_components_to_libnames is order dependent on the target
 # libraries being created.
 set_property(GLOBAL PROPERTY LLVM_TARGETS_CONFIGURED On)
-
-# # BEGIN COMPILER COURSE
-# set(LLVM_TEST_DEPENDS ${LLVM_TEST_DEPENDS} PARENT_SCOPE)
-# # END COMPILER COURSE
