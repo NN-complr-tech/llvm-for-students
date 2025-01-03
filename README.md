@@ -14,8 +14,8 @@ environments.
 The LLVM project has multiple components. The core of the project is
 itself called "LLVM". This contains all of the tools, libraries, and header
 files needed to process intermediate representations and convert them into
-object files. Tools include an assembler, disassembler, bit code analyzer, and
-bytecode optimizer.
+object files. Tools include an assembler, disassembler, bitcode analyzer, and
+bitcode optimizer.
 
 # 0. Intro
 This course will consist of 4 laboratory work. As part of the laboratory works, you will study all stages of compilation, starting with the generation of the AST tree, ending with code generation.
