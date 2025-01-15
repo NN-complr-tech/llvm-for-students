@@ -61,7 +61,38 @@ cmake -G Ninja -S llvm -B build \
     -DLLVM_TARGETS_TO_BUILD="X86;AArch64"
 cmake --build build --config Release -j 4
 ```
-# 4. Run tests
+# 4. Where to implement laboratory work?
+Each directory has an implementation example.
+
+## ClangAST lab
+```bash
+cd llvm/clang/compiler-course/ # for labs
+```
+```bash
+cd llvm/clang/test/compiler-course/ # for tests
+```
+## LLVM IR lab
+```bash
+cd llvm/llvm/compiler-course/llvm-ir/ # for labs
+```
+```bash
+cd llvm/llvm/test/compiler-course/ # for tests
+```
+## Backend lab
+```bash
+cd llvm/llvm/compiler-course/backend/ # for labs
+```
+```bash
+cd llvm/llvm/test/compiler-course/ # for tests
+```
+## MLIR lab
+```bash MLIR
+cd llvm/mlir/compiler-course/ # for labs
+```
+```bash MLIR
+cd llvm/mlir/test/compiler-course/ # for tests
+```
+# 5. Run tests
 For all tests
 ```bash
 cmake --build build --config Release -t \
@@ -73,7 +104,7 @@ For one test
 ```bash
 ./build/bin/llvm-lit -v /path/to/test_file
 ```
-# 5. Resources
+# 6. Resources
 - [Telegram сhat][chat]
 - [Telegram сhannel][channel]
 - [Tasks and results][results]
