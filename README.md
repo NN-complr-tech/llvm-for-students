@@ -29,6 +29,7 @@ Recommended OS - Linux (WSL).
 ```bash
 git clone https://github.com/<your-github-name>/llvm.git
 cd llvm/
+git checkout -b <name-your-branch>
 ```
 
 # 2. Setup environment
@@ -58,7 +59,7 @@ cmake -G Ninja -S llvm -B build \
     -DLLVM_CCACHE_BUILD=ON \
     -DLLVM_ENABLE_ASSERTIONS=ON \
     -DLLVM_ENABLE_PROJECTS="clang;mlir" \
-    -DLLVM_TARGETS_TO_BUILD="X86;AArch64"
+    -DLLVM_TARGETS_TO_BUILD=X86 # specify your target architecture (X86, Aarch64)
 cmake --build build --config Release -j 4
 ```
 # 4. Where to implement laboratory work?
@@ -66,31 +67,31 @@ Each directory has an implementation example.
 
 ## ClangAST lab
 ```bash
-cd llvm/clang/compiler-course/ # for labs
+cd clang/compiler-course/ # for labs
 ```
 ```bash
-cd llvm/clang/test/compiler-course/ # for tests
+cd clang/test/compiler-course/ # for tests
 ```
 ## LLVM IR lab
 ```bash
-cd llvm/llvm/compiler-course/llvm-ir/ # for labs
+cd llvm/compiler-course/llvm-ir/ # for labs
 ```
 ```bash
-cd llvm/llvm/test/compiler-course/ # for tests
+cd llvm/test/compiler-course/ # for tests
 ```
 ## Backend lab
 ```bash
-cd llvm/llvm/compiler-course/backend/ # for labs
+cd llvm/compiler-course/backend/ # for labs
 ```
 ```bash
-cd llvm/llvm/test/compiler-course/ # for tests
+cd llvm/test/compiler-course/ # for tests
 ```
 ## MLIR lab
 ```bash MLIR
-cd llvm/mlir/compiler-course/ # for labs
+cd mlir/compiler-course/ # for labs
 ```
 ```bash MLIR
-cd llvm/mlir/test/compiler-course/ # for tests
+cd mlir/test/compiler-course/ # for tests
 ```
 # 5. Run tests
 For all tests
@@ -117,10 +118,10 @@ For one test
 
 <!-- LINKS -->
 <!-- Tasks and results -->
-[results]: results
+[results]: https://docs.google.com/spreadsheets/d/1LiZ5FMd5t61yoGdnpANTFpzqtKD_ejtvLl1cHKZxvXQ/edit?usp=sharing
 <!-- Contacts -->
-[channel]: channel
-[chat]: chat
+[channel]: https://t.me/+TPntKPD8z0E3OWJi
+[chat]: https://t.me/+JG3n1jeSAiIxZjMy
 <!-- Materials -->
 [lecture]: https://github.com/NN-complr-tech/Complr-course-lectures
 [llvm]: https://llvm.org/
